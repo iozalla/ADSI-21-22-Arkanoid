@@ -24,7 +24,8 @@ public class ScoreBoard {
 		if (score == (Config.COUNT_BLOCKS_X * Config.COUNT_BLOCKS_Y)) {
 			win = true;
 			text = "You have won! \nYour score was: " + score
-					+ "\n\nPress Enter to restart";
+					+ "\n\nPress Enter to restart \n\nPress G to show the GLOBAL scoreboard  \n\nPress P to show the PERSONAL scoreboard";
+			//OBTENER EL NOMBRE DEL USER Y LOS PUNTOS PARA GUARDARLOS EN LA BD
 		} else {
 			updateScoreboard();
 		}

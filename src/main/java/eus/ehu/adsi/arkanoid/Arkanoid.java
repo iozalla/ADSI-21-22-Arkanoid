@@ -24,6 +24,7 @@ import eus.ehu.adsi.arkanoid.view.Paddle;
 import eus.ehu.adsi.arkanoid.view.ScoreBoard;
 import eus.ehu.adsi.arkanoid.view.Brick;
 import eus.ehu.adsi.arkanoid.core.Game;
+import eus.ehu.adsi.arkanoid.core.Highscore;
 
 public class Arkanoid extends JFrame implements KeyListener {
 
@@ -33,6 +34,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 
 	// Game variables
 	private Game game;
+	private Highscore hs;
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
 	private Ball ball = new Ball(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
 	private List<Brick> bricks = new ArrayList<Brick>();
@@ -174,6 +176,12 @@ public class Arkanoid extends JFrame implements KeyListener {
 		}
 		if (event.getKeyCode() == KeyEvent.VK_ENTER) {
 			game.setTryAgain(true);
+		}
+		if (event.getKeyCode() == KeyEvent.VK_P) {
+			hs.getMiHighScore().mostrarPersonal();
+		}
+		if (event.getKeyCode() == KeyEvent.VK_G) {
+			hs.getMiHighScore().mostrarScoreGlobal();
 		}
 		switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
