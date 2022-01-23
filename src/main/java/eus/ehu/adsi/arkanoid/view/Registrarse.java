@@ -124,6 +124,8 @@ public class Registrarse extends JFrame implements ActionListener {
         String usuario = user.getText();
         String contrasena = password.getText();
         Arkanoid.registrarse(correo,usuario,contrasena);
+        MenuPrincipal2.main(null);
+        Registrarse.this.dispose();
     }
 }
 

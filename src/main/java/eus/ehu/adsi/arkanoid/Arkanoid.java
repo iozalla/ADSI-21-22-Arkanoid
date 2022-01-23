@@ -86,6 +86,8 @@ public class Arkanoid extends JFrame implements KeyListener {
 		
 		game.setRunning(true);
 
+		boolean actualizado = false;
+
 		while (game.isRunning()) {
 
 			long time1 = System.currentTimeMillis();
@@ -115,21 +117,23 @@ public class Arkanoid extends JFrame implements KeyListener {
 					logger.error(e.getMessage());
 				}
 
-			} else { 
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-				int ganada;
-				if (scoreboard.win) ganada = 1;
-				else ganada = 0;
-                GestorBD.miGestorBD.execSQL2("INSERT INTO partidanormal Values('"+scoreboard.getNivelActual() +"','"+ usuarioIniciado +"','"+  dtf.format(LocalDateTime.now()) +"','"+ scoreboard.getPuntos() +"',"+ ganada +");");
-                this.entregarPremios(this.usuarioIniciado);
-                game.setTryAgain(false);
-
+			} else {
+				if (!actualizado) {
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+					int ganada;
+					if (scoreboard.win) ganada = 1;
+					else ganada = 0;
+					GestorBD.miGestorBD.execSQL2("INSERT INTO partidanormal Values('" + scoreboard.getNivelActual() + "','" + usuarioIniciado + "','" + dtf.format(LocalDateTime.now()) + "','" + scoreboard.getPuntos() + "'," + ganada + ");");
+					this.entregarPremios(this.usuarioIniciado);
+					game.setTryAgain(false);
+					actualizado = true;
+				}
 				if (game.isTryAgain()) {
-
+					actualizado = false;
 					logger.info("Trying again");
 					game.setTryAgain(false);
 
-					bricks = Game.initializeBricks(bricks,Config.Nivel_Inicio);
+					bricks = Game.initializeBricks(bricks, Config.Nivel_Inicio);
 
 					scoreboard.lives = Config.PLAYER_LIVES;
 					scoreboard.score = 0;
