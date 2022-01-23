@@ -130,7 +130,6 @@ public class MenuPrincipal2 extends JFrame{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
 			}
 			else if(btn.getText().equals("AJUSTES")) {
 				MenuPrincipal2.this.dispose();

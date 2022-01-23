@@ -76,7 +76,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 		return this.scoreboard;
 	}
 
-	void run() throws InterruptedException {
+	public void run() throws InterruptedException {
 
 		BufferStrategy bf = this.getBufferStrategy();
 		Graphics g = bf.getDrawGraphics();
