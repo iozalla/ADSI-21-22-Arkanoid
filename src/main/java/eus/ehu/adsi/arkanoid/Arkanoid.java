@@ -16,6 +16,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 
@@ -111,7 +112,11 @@ public class Arkanoid extends JFrame implements KeyListener {
 					logger.error(e.getMessage());
 				}
 
-			} else { //HAY QUE ACTUALIZAR ESTO ESTO
+			} else { 
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                GestorBD.miGestorBD.execSQL2("INSERT INTO PartidaNormal Values("+scoreboard.getNivelActual() +","+ usuarioIniciado +","+  dtf.format(LocalDateTime.now()) +","+ scoreboard.getPuntos() +","+ scoreboard.win +");");
+                game.setTryAgain(false);
+
 				if (game.isTryAgain()) {
 
 					logger.info("Trying again");
@@ -288,7 +293,8 @@ public class Arkanoid extends JFrame implements KeyListener {
 
 
 	}
-	
+
+////////////////////////////////////////////PREMIOS////////////////////////////////////////////
   
 	public static String obtenerDescripciones() {
 		ResultSet rs = GestorBD.miGestorBD.execSQL1("SELECT * FROM premio");
@@ -383,9 +389,9 @@ public class Arkanoid extends JFrame implements KeyListener {
 			
 			//RACHA DE VICTORIAS
 			if(total>=5 && total<10) {
-				rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE username='"+ usuario +"' AND nombre='Rub�'");
+				rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE username='"+ usuario +"' AND nombre='Rubï¿½'");
 				if(!rs2.next()) {
-					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rub�')");					
+					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rubï¿½')");					
 				}
 			}
 			else if(total>=10 && total<20) {
@@ -400,11 +406,11 @@ public class Arkanoid extends JFrame implements KeyListener {
 					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Diamante')");					
 				}
 			}
-	        rs.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	}
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 	////////////////////////////////	RANKING 	/////////////////////////////////////////	
 	
@@ -487,47 +493,72 @@ public class Arkanoid extends JFrame implements KeyListener {
 		}
 		return resultado;
 	}
-
-
+  
 	////////////////////////////////////////////////////REGISTRO//////////////////////////////////////////////////////
 	public static void registrarse(String email, String user, String password){
-		GestorBD.miGestorBD.execSQL2("INSERT INTO jugador VALUES('"+user+"','"+password+"',1,'"+email+"','verde','rojo','negro','azul');");
-		iniciar(user);
-	}
-	public static void iniciarSesion(String usuario, String password){
-		ResultSet result = GestorBD.miGestorBD.execSQL1("SELECT passwrd FROM jugador WHERE username='"+usuario+"';");
 		try {
-			if (result.next()){
-				String pw = result.getString("passwrd");
-				if (pw.equals(password)){
-					iniciar(usuario);
-					JOptionPane.showMessageDialog(null, "Sesion iniciada");
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
-				}
+			if (email.isEmpty() || email == null || user.isEmpty() || user == null || password.isEmpty() || password == null) {
+				JOptionPane.showMessageDialog(null, "Hay uno o varios campos vacios.");
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+			else if (GestorBD.miGestorBD.execSQL1("SELECT * FROM jugador WHERE username='"+user+"';").next()){
+				JOptionPane.showMessageDialog(null, "El usuario ya existe");
+			}
+			else if (!Pattern.compile("^(.+)@(.+)$").matcher(email).matches()){
+				JOptionPane.showMessageDialog(null, "Formato de mail incorrecto");
+			}
+			else if (GestorBD.miGestorBD.execSQL1("SELECT * FROM jugador WHERE email='"+email+"';").next()){
+				JOptionPane.showMessageDialog(null, "El email ya existe");
+			}
+			else{
+				GestorBD.miGestorBD.execSQL2("INSERT INTO jugador VALUES('"+user+"','"+password+"',1,'"+email+"','verde','rojo','negro','azul');");
+				iniciar(user);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+	}
+	public static void iniciarSesion(String usuario, String password){
+		if (usuario.isEmpty() || usuario == null || password.isEmpty() || password == null){
+			JOptionPane.showMessageDialog(null, "Hay campos vacíos");
+		}
+		else {
+			ResultSet result = GestorBD.miGestorBD.execSQL1("SELECT passwrd FROM jugador WHERE username='" + usuario + "';");
+			try {
+				if (result.next()) {
+					String pw = result.getString("passwrd");
+					if (pw.equals(password)) {
+						iniciar(usuario);
+					} else {
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "El usuario no existe");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	public static void iniciar(String user){
 		usuarioIniciado = user;
 	}
 	public static void modificarContrasena(String user, String password){
-		ResultSet result = GestorBD.miGestorBD.execSQL1("SELECT passwrd FROM jugador WHERE username='"+user+"';");
-		try {
-			if (result.next()){
-				GestorBD.miGestorBD.execSQL2("UPDATE jugador SET passwrd='"+password+"' WHERE username='"+user+"'");
+		if (user.isEmpty() || user == null || password.isEmpty() || password == null){
+			JOptionPane.showMessageDialog(null, "Hay campos vacios.");
+		}
+		else {
+			ResultSet result = GestorBD.miGestorBD.execSQL1("SELECT passwrd FROM jugador WHERE username='" + user + "';");
+			try {
+				if (result.next()) {
+					GestorBD.miGestorBD.execSQL2("UPDATE jugador SET passwrd='" + password + "' WHERE username='" + user + "'");
+					JOptionPane.showMessageDialog(null, "La contraseña ha sido actualizada.");
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario incorrecto");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			else{
-				JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 	
