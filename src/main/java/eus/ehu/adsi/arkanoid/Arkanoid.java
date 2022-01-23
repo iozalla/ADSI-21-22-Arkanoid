@@ -399,6 +399,12 @@ public class Arkanoid extends JFrame implements KeyListener {
 				if(!rs2.next()) {
 					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Diamante')");					
 				}
+			}
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 
 	////////////////////////////////	RANKING 	/////////////////////////////////////////	
 	
@@ -481,77 +487,8 @@ public class Arkanoid extends JFrame implements KeyListener {
 		}
 		return resultado;
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public static void entregarPremios(String usuario) {
-        ResultSet rs = GestorBD.miGestorBD.execSQL1("SELECT usuario, ganada? FROM partidaNormal WHERE usuario='"+ usuario +"' ORDER BY fecha");
-        int total=0;
-        int racha=0;
-        try {
-            while (rs.next()) {
-                Boolean victoria = rs.getBoolean("ganada?");
-                if(victoria) {
-                    total=total+1;
-                    racha=racha+1;
-                }
-                else {
-                    racha=0;
-                }
-                
-            }
-            //Una vez ya hemos visto cuantas victorias y rachas asignamos los premios correspondientes
-            //VICTORIAS TOTALES
-            ResultSet rs2;
-            if(total>=5 && total<10) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Bronce'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Bronce')");
-                }
-            }
-            else if(total>=10 && total<20) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Plata'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Plata')");                    
-                }
-            }
-            else if(total>=20 && total<50) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Oro'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Oro')");                    
-                }
-            }
-            else if(total>=50) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Platino'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Platino')");                    
-                }
-            }
-            
-            //RACHA DE VICTORIAS
-            if(total>=5 && total<10) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Rub�'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rub�')");                    
-                }
-            }
-            else if(total>=10 && total<20) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Zafiro'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Zafiro')");                    
-                }
-            }
-            else if(total>=20) {
-                rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE usuario='"+ usuario +"' AND nombre='Diamante'");
-                if(!rs2.next()) {
-                    GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Diamante')");                    
-                }
-            }
-            
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
+
 	////////////////////////////////////////////////////REGISTRO//////////////////////////////////////////////////////
 	public static void registrarse(String email, String user, String password){
 		GestorBD.miGestorBD.execSQL2("INSERT INTO jugador VALUES('"+user+"','"+password+"',1,'"+email+"','verde','rojo','negro','azul');");
@@ -614,58 +551,42 @@ public class Arkanoid extends JFrame implements KeyListener {
 	
 	public static void cambiarColores(String pUser,String pFondo,String pLadrillo,String pBola,String pPaddle) {
 		if(pFondo.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.BACKGROUND_COLOR = Color.yellow;
 		} else if(pFondo.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.BACKGROUND_COLOR = Color.red;
 		} else if(pFondo.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.BACKGROUND_COLOR = Color.blue;
 		} else if(pFondo.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.BACKGROUND_COLOR = Color.black;
 		}
 		
 		if(pLadrillo.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.BRICK_COLOR = Color.yellow;
 		} else if(pLadrillo.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.BRICK_COLOR = Color.red;
 		} else if(pLadrillo.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.BRICK_COLOR = Color.blue;
 		} else if(pLadrillo.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.BRICK_COLOR = Color.black;
 		} 
 		
 		if(pBola.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.BALL_COLOR = Color.yellow;
 		} else if(pBola.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.BALL_COLOR = Color.red;
 		} else if(pBola.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.BALL_COLOR = Color.blue;
 		} else if(pBola.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.BALL_COLOR = Color.black;
 		} 
 		
 		if(pPaddle.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.PADDLE_COLOR = Color.yellow;
 		} else if(pPaddle.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.PADDLE_COLOR = Color.red;
 		} else if(pPaddle.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.PADDLE_COLOR = Color.blue;
 		} else if(pPaddle.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.PADDLE_COLOR = Color.black;
 		} 
 		

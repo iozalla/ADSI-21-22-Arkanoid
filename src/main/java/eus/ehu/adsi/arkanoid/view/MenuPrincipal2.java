@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import eus.ehu.adsi.arkanoid.App;
 import eus.ehu.adsi.arkanoid.Arkanoid;
 import eus.ehu.adsi.arkanoid.core.Game;
 
@@ -123,6 +124,7 @@ public class MenuPrincipal2 extends JFrame{
 			JButton btn = (JButton)e.getSource();
 			if(btn.getText().equals("JUGAR")) {
 				MenuPrincipal2.this.dispose();
+				
 			}
 			else if(btn.getText().equals("AJUSTES")) {
 				MenuPrincipal2.this.dispose();
