@@ -120,7 +120,6 @@ public class Identificar extends JFrame implements ActionListener {
             String usuario = user.getText();
             String contrasena = password.getText();
             Arkanoid.iniciarSesion(usuario,contrasena);
-            MenuPrincipal2.getMiMenuPrincipal2().main(null);
             Identificar.this.dispose();
         }
         else{

@@ -28,6 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 import eus.ehu.adsi.arkanoid.view.Ball;
 import eus.ehu.adsi.arkanoid.view.Config;
+import eus.ehu.adsi.arkanoid.view.MenuPrincipal2;
 import eus.ehu.adsi.arkanoid.view.Paddle;
 import eus.ehu.adsi.arkanoid.view.ScoreBoard;
 import eus.ehu.adsi.arkanoid.view.Brick;
@@ -532,6 +533,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 					String pw = result.getString("passwrd");
 					if (pw.equals(password)) {
 						iniciar(usuario);
+			            MenuPrincipal2.getMiMenuPrincipal2().main(null);
 					} else {
 						JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
 					}
