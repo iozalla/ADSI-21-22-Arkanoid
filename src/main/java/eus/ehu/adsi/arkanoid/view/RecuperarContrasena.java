@@ -110,5 +110,7 @@ public class RecuperarContrasena extends JFrame implements ActionListener {
         String usuario = user.getText();
         String contrasena = password.getText();
         Arkanoid.modificarContrasena(usuario,contrasena);
+        Identificar.main(null);
+        RecuperarContrasena.this.dispose();
     }
 }

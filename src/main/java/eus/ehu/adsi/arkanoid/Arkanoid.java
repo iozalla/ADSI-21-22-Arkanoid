@@ -117,7 +117,10 @@ public class Arkanoid extends JFrame implements KeyListener {
 
 			} else { 
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                GestorBD.miGestorBD.execSQL2("INSERT INTO PartidaNormal Values("+scoreboard.getNivelActual() +","+ usuarioIniciado +","+  dtf.format(LocalDateTime.now()) +","+ scoreboard.getPuntos() +","+ scoreboard.win +");");
+				int ganada;
+				if (scoreboard.win) ganada = 1;
+				else ganada = 0;
+                GestorBD.miGestorBD.execSQL2("INSERT INTO partidanormal Values('"+scoreboard.getNivelActual() +"','"+ usuarioIniciado +"','"+  dtf.format(LocalDateTime.now()) +"','"+ scoreboard.getPuntos() +"',"+ ganada +");");
                 this.entregarPremios(this.usuarioIniciado);
                 game.setTryAgain(false);
 
@@ -348,7 +351,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 	}
 
 	public static void entregarPremios(String usuario) {
-		ResultSet rs = GestorBD.miGestorBD.execSQL1("SELECT username, ganada FROM partidaNormal WHERE username='"+ usuario +"' ORDER BY fecha");
+		ResultSet rs = GestorBD.miGestorBD.execSQL1("SELECT username, `ganada?` FROM partidanormal WHERE username='"+ usuario +"' ORDER BY fecha");
 		int total=0;
 		int racha=0;
 		try {
@@ -626,7 +629,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 			Config.PADDLE_COLOR = Color.black;
 		} 
 		
-		GestorBD.miGestorBD.execSQL2("UPDATE Jugador SET colFondo='" + pFondo+"', colBrick='" + pLadrillo+"', colBola='" + pBola+"', colPaddle='" + pPaddle+"' WHERE username='" + pUser+"'");
+		GestorBD.miGestorBD.execSQL2("UPDATE jugador SET colFondo='" + pFondo+"', colBrick='" + pLadrillo+"', colBola='" + pBola+"', colPaddle='" + pPaddle+"' WHERE username='" + pUser+"'");
 	}
 
 	public static void cambiarContrasenaUsuarioIniciado(String password){

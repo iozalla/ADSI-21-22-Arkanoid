@@ -99,5 +99,7 @@ public class CambiarContrasena extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String contrasena = password.getText();
         Arkanoid.cambiarContrasenaUsuarioIniciado(contrasena);
+        MenuPrincipal2.main(null);
+        CambiarContrasena.this.dispose();
     }
 }

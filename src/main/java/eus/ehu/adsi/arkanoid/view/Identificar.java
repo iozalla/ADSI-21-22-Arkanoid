@@ -40,6 +40,7 @@ public class Identificar extends JFrame implements ActionListener {
     private JPasswordField password;
     private JButton iniciar;
     private JButton recuperar;
+    private JButton registrarse;
 
 
     public static void main(String[] args) {
@@ -65,7 +66,7 @@ public class Identificar extends JFrame implements ActionListener {
     private Identificar() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 400, 420);
+        setBounds(100, 100, 400, 500);
         //POP UP CENTRADPO
         setLocationRelativeTo(null);
         contentPane = new JPanel();
@@ -112,6 +113,12 @@ public class Identificar extends JFrame implements ActionListener {
         recuperar.addActionListener(this);
         recuperar.setBackground(new Color(255, 255, 255));
         contentPane.add(recuperar);
+
+        registrarse = new JButton("Registrarse");
+        registrarse.setBounds(120, 360, 170, 50);
+        registrarse.addActionListener(this);
+        registrarse.setBackground(new Color(255, 255, 255));
+        contentPane.add(registrarse);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -122,8 +129,13 @@ public class Identificar extends JFrame implements ActionListener {
             Arkanoid.iniciarSesion(usuario,contrasena);
             Identificar.this.dispose();
         }
+        else if (btn.equals(recuperar)){
+            RecuperarContrasena.main(null);
+            Identificar.this.dispose();
+        }
         else{
-            System.out.println("Hola");
+            Registrarse.main(null);
+            Identificar.this.dispose();
         }
     }
 }

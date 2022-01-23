@@ -30,6 +30,7 @@ public class MenuPrincipal2 extends JFrame{
     private JButton premios;
     private JButton ajustes;
     private JButton ranking;
+	private JButton cambiarPass;
     private String usuarioAct;
     //Prueba
     //Controlador
@@ -75,7 +76,7 @@ public class MenuPrincipal2 extends JFrame{
 		
 		
 		fondo = new JPanel();
-		fondo.setLayout(new GridLayout(5,1));
+		fondo.setLayout(new GridLayout(6,1));
 		fondo.setOpaque(false);
 		contentPane.add(fondo, BorderLayout.CENTER);
 		
@@ -102,7 +103,13 @@ public class MenuPrincipal2 extends JFrame{
 		ranking.setText("RANKING");
 		ranking.setPreferredSize(new Dimension(150, 20));
 		fondo.add(ranking);
-		
+
+		cambiarPass = new JButton();
+		cambiarPass.addActionListener(getControlador());
+		cambiarPass.setText("CAMBIAR CONTRASEÑA");
+		cambiarPass.setPreferredSize(new Dimension(150, 20));
+		fondo.add(cambiarPass);
+
 		salir = new JButton();
 		salir.addActionListener(getControlador());
 		salir.setText("SALIR");
@@ -137,7 +144,7 @@ public class MenuPrincipal2 extends JFrame{
 				
 				MenuPrincipal2.this.dispose();
 				try {
-					App.main(null);
+					new Arkanoid().run();
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -154,6 +161,10 @@ public class MenuPrincipal2 extends JFrame{
 			else if(btn.getText().equals("RANKING")) {
 				MenuPrincipal2.this.dispose();
 				EleccionRnkng.main(null);
+			}
+			else if(btn.getText().equals("CAMBIAR CONTRASEÑA")) {
+				MenuPrincipal2.this.dispose();
+				CambiarContrasena.main(null);
 			}
 			else if(btn.getText().equals("SALIR")) {
 				MenuPrincipal2.this.dispose();	
