@@ -115,6 +115,7 @@ public class Descripciones extends JFrame{
 			JButton btn = (JButton)e.getSource();
 			if(btn.getText().equals("SALIR")) {
 				Descripciones.this.dispose();
+				MenuPrincipal2.getMiMenuPrincipal2().main(null);
 			}
 		}
 	}

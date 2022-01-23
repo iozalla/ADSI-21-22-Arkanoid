@@ -389,9 +389,9 @@ public class Arkanoid extends JFrame implements KeyListener {
 			
 			//RACHA DE VICTORIAS
 			if(total>=5 && total<10) {
-				rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE username='"+ usuario +"' AND nombre='Rub�'");
+				rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE username='"+ usuario +"' AND nombre='Rubï¿½'");
 				if(!rs2.next()) {
-					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rub�')");					
+					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rubï¿½')");					
 				}
 			}
 			else if(total>=10 && total<20) {
@@ -493,7 +493,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 		}
 		return resultado;
 	}
-          
+  
 	////////////////////////////////////////////////////REGISTRO//////////////////////////////////////////////////////
 	public static void registrarse(String email, String user, String password){
 		try {
@@ -582,58 +582,42 @@ public class Arkanoid extends JFrame implements KeyListener {
 	
 	public static void cambiarColores(String pUser,String pFondo,String pLadrillo,String pBola,String pPaddle) {
 		if(pFondo.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.BACKGROUND_COLOR = Color.yellow;
 		} else if(pFondo.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.BACKGROUND_COLOR = Color.red;
 		} else if(pFondo.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.BACKGROUND_COLOR = Color.blue;
 		} else if(pFondo.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.BACKGROUND_COLOR = Color.black;
 		}
 		
 		if(pLadrillo.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.BRICK_COLOR = Color.yellow;
 		} else if(pLadrillo.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.BRICK_COLOR = Color.red;
 		} else if(pLadrillo.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.BRICK_COLOR = Color.blue;
 		} else if(pLadrillo.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.BRICK_COLOR = Color.black;
 		} 
 		
 		if(pBola.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.BALL_COLOR = Color.yellow;
 		} else if(pBola.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.BALL_COLOR = Color.red;
 		} else if(pBola.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.BALL_COLOR = Color.blue;
 		} else if(pBola.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.BALL_COLOR = Color.black;
 		} 
 		
 		if(pPaddle.equalsIgnoreCase("Amarillo")) {
-			System.out.println("Amarillo");
 			Config.PADDLE_COLOR = Color.yellow;
 		} else if(pPaddle.equalsIgnoreCase("Rojo")) {
-			System.out.println("Rojo");
 			Config.PADDLE_COLOR = Color.red;
 		} else if(pPaddle.equalsIgnoreCase("Azul")) {
-			System.out.println("Azul");
 			Config.PADDLE_COLOR = Color.blue;
 		} else if(pPaddle.equalsIgnoreCase("Negro")) {
-			System.out.println("Negro");
 			Config.PADDLE_COLOR = Color.black;
 		} 
 		

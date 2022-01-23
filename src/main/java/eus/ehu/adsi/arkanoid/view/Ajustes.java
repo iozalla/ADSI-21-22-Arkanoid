@@ -56,7 +56,7 @@ public class Ajustes extends JFrame implements ActionListener {
 	
 	public Ajustes() {
 		
-		String datos = Arkanoid.obtenerAjustes("anegda");
+		String datos = Arkanoid.obtenerAjustes(Arkanoid.getUsuarioIniciado());
 		String[] datos2 = datos.split(" ");
 		String fondo = datos2[0];
 		System.out.println(fondo);
@@ -150,8 +150,7 @@ public class Ajustes extends JFrame implements ActionListener {
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setBounds(163, 175, 102, 25);
 		btnSalir.addActionListener(this);
-		contentPane.add(btnSalir);
-		
+		contentPane.add(btnSalir);	
 	}
 	
 	public void actionPerformed(ActionEvent e) {		
@@ -161,9 +160,7 @@ public class Ajustes extends JFrame implements ActionListener {
 			String ladrillo = colorLadrillo.getSelectedItem().toString();
 			String bola = colorBola.getSelectedItem().toString();
 			String paddle = colorPaddle.getSelectedItem().toString();
-			Arkanoid.cambiarColores("anegda",fondo,ladrillo,bola,paddle);
-//			String[] arg = new String[1];
-//			arg[0] = nUser;
+			Arkanoid.cambiarColores(Arkanoid.getUsuarioIniciado(),fondo,ladrillo,bola,paddle);
 			MenuPrincipal2.getMiMenuPrincipal2().main(null);;
 			Ajustes.this.dispose();	
 		} 		
