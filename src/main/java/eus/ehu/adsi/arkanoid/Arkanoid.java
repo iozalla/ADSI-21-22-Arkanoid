@@ -355,7 +355,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 	}
 
 	public static void entregarPremios(String usuario) {
-		ResultSet rs = GestorBD.miGestorBD.execSQL1("SELECT username, `ganada?` FROM partidanormal WHERE username='"+ usuario +"' ORDER BY fecha");
+		ResultSet rs = GestorBD.miGestorBD.execSQL1("SELECT username, `ganada` FROM partidanormal WHERE username='"+ usuario +"' ORDER BY fecha");
 		int total=0;
 		int racha=0;
 		try {
@@ -521,7 +521,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 				JOptionPane.showMessageDialog(null, "El email ya existe");
 			}
 			else{
-				GestorBD.miGestorBD.execSQL2("INSERT INTO jugador VALUES('"+user+"','"+password+"',1,'"+email+"','verde','rojo','negro','azul');");
+				GestorBD.miGestorBD.execSQL2("INSERT INTO jugador VALUES('"+user+"','"+password+"','"+email+"','verde','rojo','negro','azul');");
 				iniciar(user);
 			}
 		} catch (SQLException e) {
