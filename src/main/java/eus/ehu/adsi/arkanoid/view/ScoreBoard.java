@@ -53,9 +53,13 @@ public class ScoreBoard {
 		nivelActual++;
 		nivelSuperado = true;
 	}
-	public static int getNivelActual(){
-		return nivelActual;
-	}
+	public int getNivelActual(){
+        return nivelActual;
+    }
+
+    public int getPuntos(){
+        return lives*score;
+    }
 
 	void die() {
 		lives--;

@@ -111,7 +111,11 @@ public class Arkanoid extends JFrame implements KeyListener {
 					logger.error(e.getMessage());
 				}
 
-			} else { //HAY QUE ACTUALIZAR ESTO ESTO
+			} else { 
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                GestorBD.miGestorBD.execSQL2("INSERT INTO PartidaNormal Values("+scoreboard.getNivelActual() +","+ usuarioIniciado +","+  dtf.format(LocalDateTime.now()) +","+ scoreboard.getPuntos() +","+ scoreboard.win +");");
+                game.setTryAgain(false);
+
 				if (game.isTryAgain()) {
 
 					logger.info("Trying again");
