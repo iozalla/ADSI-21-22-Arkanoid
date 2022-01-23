@@ -124,6 +124,12 @@ public class MenuPrincipal2 extends JFrame{
 			JButton btn = (JButton)e.getSource();
 			if(btn.getText().equals("JUGAR")) {
 				MenuPrincipal2.this.dispose();
+				try {
+					App.main(null);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 			else if(btn.getText().equals("AJUSTES")) {

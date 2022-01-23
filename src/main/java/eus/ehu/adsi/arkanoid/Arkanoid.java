@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.net.URISyntaxException;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -115,6 +117,7 @@ public class Arkanoid extends JFrame implements KeyListener {
 			} else { 
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                 GestorBD.miGestorBD.execSQL2("INSERT INTO PartidaNormal Values("+scoreboard.getNivelActual() +","+ usuarioIniciado +","+  dtf.format(LocalDateTime.now()) +","+ scoreboard.getPuntos() +","+ scoreboard.win +");");
+                this.entregarPremios(this.usuarioIniciado);
                 game.setTryAgain(false);
 
 				if (game.isTryAgain()) {
@@ -389,9 +392,9 @@ public class Arkanoid extends JFrame implements KeyListener {
 			
 			//RACHA DE VICTORIAS
 			if(total>=5 && total<10) {
-				rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE username='"+ usuario +"' AND nombre='Rubï¿½'");
+				rs2 = GestorBD.miGestorBD.execSQL1("SELECT * FROM premiosjugador WHERE username='"+ usuario +"' AND nombre='Rubi'");
 				if(!rs2.next()) {
-					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rubï¿½')");					
+					GestorBD.miGestorBD.execSQL2("INSERT INTO premiosjugador VALUES('"+ usuario +"','Rubi')");					
 				}
 			}
 			else if(total>=10 && total<20) {

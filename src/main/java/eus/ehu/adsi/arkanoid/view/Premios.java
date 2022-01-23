@@ -141,6 +141,7 @@ public class Premios extends JFrame{
 			JButton btn = (JButton)e.getSource();
 			if(btn.getText().equals("SALIR")) {
 				Premios.this.dispose();
+				MenuPrincipal2.getMiMenuPrincipal2().main(null);
 			}
 			else{
 				Descripciones.getMiDescripciones().main(null);

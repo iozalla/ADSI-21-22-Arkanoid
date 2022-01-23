@@ -53,7 +53,7 @@ public class ScoreBoard {
 		nivelActual++;
 		nivelSuperado = true;
 	}
-	public int getNivelActual(){
+	public static int getNivelActual(){
         return nivelActual;
     }
 
