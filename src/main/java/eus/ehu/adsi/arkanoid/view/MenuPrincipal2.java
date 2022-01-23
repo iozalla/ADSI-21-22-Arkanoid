@@ -123,6 +123,18 @@ public class MenuPrincipal2 extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			JButton btn = (JButton)e.getSource();
 			if(btn.getText().equals("JUGAR")) {
+				String datos = Arkanoid.obtenerAjustes(Arkanoid.getUsuarioIniciado());
+				String[] datos2 = datos.split(" ");
+				String fondo = datos2[0];
+				System.out.println(fondo);
+				String ladrillo = datos2[1];
+				System.out.println(fondo);
+				String bola = datos2[2];
+				System.out.println(fondo);
+				String paddle = datos2[3];
+				System.out.println(fondo);
+				Arkanoid.cambiarColores(Arkanoid.getUsuarioIniciado(), fondo, ladrillo, bola, paddle);
+				
 				MenuPrincipal2.this.dispose();
 				try {
 					App.main(null);
